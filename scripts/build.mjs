@@ -3,7 +3,7 @@ import site from '../content.js';
 
 const escape = (value) => value.replace(/[&<>"']/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[character]);
 let html = await readFile('index.html', 'utf8');
-html = html.replace(/<title>[^<]*<\/title>/, `<title>${escape(site.title)}</title>`);
+html = html.replace(/<title>[^<]*<\/title>/, () => `<title>${escape(site.title)}</title>`);
 for (const [attribute, value] of [
   ['name="description"', site.description],
   ['property="og:title"', site.title],
@@ -13,7 +13,7 @@ for (const [attribute, value] of [
 ]) {
   html = html.replace(new RegExp(`(<meta ${attribute} content=")[^"]*(">)`), (_, start, end) => `${start}${escape(value)}${end}`);
 }
-html = html.replace(/<link rel="canonical" href="[^"]*">/, `<link rel="canonical" href="${escape(site.url)}">`);
+html = html.replace(/<link rel="canonical" href="[^"]*">/, () => `<link rel="canonical" href="${escape(site.url)}">`);
 await mkdir('dist', { recursive: true });
 await writeFile('dist/index.html', html);
 for (const file of ['main.js', 'content.js', 'styles.css', 'assets']) {

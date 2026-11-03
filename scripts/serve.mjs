@@ -15,7 +15,7 @@ createServer(async (request, response) => {
     const pathname = decodeURIComponent(new URL(request.url, 'http://localhost').pathname);
     const relative = pathname === '/' ? 'index.html' : pathname.slice(1);
     const path = resolve(root, relative);
-    if (!path.startsWith(root + sep) || (!publicFiles.has(relative) && !relative.startsWith('assets/'))) {
+    if (!path.startsWith(root + sep) || (!publicFiles.has(relative) && !path.startsWith(resolve(root, 'assets') + sep))) {
       response.writeHead(404).end('not found');
       return;
     }

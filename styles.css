@@ -47,8 +47,8 @@ button:focus-visible, a:focus-visible, [tabindex]:focus-visible {
 .wordmark { display: flex; gap: 12px; align-items: center; font-family: var(--serif); font-size: 25px; font-weight: 500; text-decoration: none; color: #fffdf6; text-shadow: 0 1px 8px #234b6450; }
 .wordmark span { font-size: 20px; opacity: .8; }
 .share { position: relative; }
-.share-button { display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 15px; border: 1px solid #fffdf65c; border-radius: 24px; background: #fcfbf124; color: #fffdf6; font-size: 12px; transition: background .18s; }
-.share-button:hover { background: #fcfbf13d; }
+.share-button { display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 15px; border: 1px solid #e9e3d5b3; border-radius: 24px; background: var(--paper); color: var(--ink); font-size: 12px; transition: background .18s; }
+.share-button:hover { background: #f0eee3; }
 .share-button .icon { width: 15px; height: 15px; }
 .share-button:focus-visible, .wordmark:focus-visible { outline-color: var(--paper); }
 .share-status { position: absolute; top: calc(100% + 9px); right: 0; z-index: 3; width: max-content; max-width: min(300px, 80vw); padding: 12px 16px; border-radius: 10px; font-size: 12px; overflow-wrap: anywhere; background: var(--paper); box-shadow: 0 4px 16px #283d4720; }
@@ -106,13 +106,10 @@ figcaption { padding: 11px 7px 14px; text-align: center; font: 400 23px/1.1 var(
 .link-card h3 { margin: 0 0 3px; font: 500 24px/1.05 var(--serif); letter-spacing: -.3px; overflow-wrap: anywhere; }
 .link-card p { margin: 0; color: var(--muted); font-size: 10px; line-height: 1.5; }
 .link-arrow { margin-left: auto; width: 14px; height: 14px; color: var(--muted); }
-.margin-note { grid-area: 4 / 1 / 5 / 2; align-self: center; justify-self: center; color: #f9f4e6; text-align: center; text-shadow: 0 1px 3px #294f6366; transform: rotate(-6deg); }
-.margin-note svg { width: 100px; height: 76px; stroke: currentColor; stroke-width: 1.3; stroke-linecap: round; stroke-linejoin: round; }
-.margin-note span { display: block; font: 400 25px/1.05 var(--hand); }
-.footer { display: flex; align-items: end; justify-content: space-between; gap: 28px; padding: 54px 0 24px; color: #fffdf5; text-shadow: 0 1px 5px #223b4f7a; }
+.footer { display: flex; align-items: center; justify-content: space-between; gap: 28px; margin: 40px 0 24px; padding: 16px 22px; background: var(--paper) url('./assets/paper.svg'); border-radius: 12px 15px 13px 11px; }
 .footer > p:first-child { margin: 0; font: 400 24px/1.2 var(--hand); transform: rotate(-2deg); }
 .credit { margin: 0; font-size: 10px; line-height: 1.8; text-align: right; }
-.credit a { text-underline-offset: 3px; text-decoration-color: #fffdf585; }
+.credit a { text-underline-offset: 3px; text-decoration-color: #696a5f85; }
 .credit a:hover { text-decoration-color: currentColor; }
 .credit span { display: block; font-size: 9px; }
 .photo-dialog { width: min(1000px, calc(100% - 40px)); max-height: calc(100svh - 40px); padding: 12px 12px 0; border: 0; border-radius: 13px; background: var(--paper) url('./assets/paper.svg'); color: var(--ink); box-shadow: 0 15px 80px #14262f44; overflow: auto; }
@@ -125,7 +122,7 @@ body:has(dialog[open]) { overflow: hidden; }
 @media (min-width: 1500px) {
   .page { padding-top: 48px; }
   .masthead { margin-bottom: 70px; }
-  .footer { padding-top: 65px; }
+  .footer { margin-top: 50px; }
 }
 
 @media (max-width: 1050px) {
@@ -186,12 +183,11 @@ body:has(dialog[open]) { overflow: hidden; }
   .link-icon .icon { width: 17px; height: 17px; }
   .link-card h3 { font-size: 24px; }
   .link-arrow { position: absolute; right: 13px; bottom: 13px; width: 12px; height: 12px; }
-  .margin-note { display: none; }
-  .footer { flex-direction: column; align-items: center; gap: 21px; padding-top: 39px; padding-bottom: 28px; }
+  .footer { flex-direction: column; align-items: center; gap: 14px; margin-top: 32px; padding: 20px 15px; }
   .credit { text-align: center; }
 }
 
-@media (max-width: 380px) {
+@media (max-width: 480px) {
   .page { width: calc(100% - 32px); }
   .profile { padding-inline: 20px; }
   .moment { padding-inline: 18px; gap: 13px; }
