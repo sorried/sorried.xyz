@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <filter id="wash"><feTurbulence baseFrequency=".07" numOctaves="3" seed="8" result="grain"/><feDisplacementMap in="SourceGraphic" in2="grain" scale="3"/></filter>
+  </defs>
+  <rect width="100" height="100" fill="#e7ebd8"/>
+  <path d="M9 52C3 28 22 9 48 11s43 18 42 42-24 39-48 35S11 73 9 52Z" fill="#c4d1b3" opacity=".7" filter="url(#wash)"/>
+  <path d="M31 78c9-14 15-30 20-53M45 43C28 44 28 30 28 30c12 0 17 5 17 13Zm6-13c0-13 12-17 12-17 2 10-1 16-12 17Zm-10 25c-15 5-20-6-20-6 11-4 17-2 20 6Zm4-8c2-14 15-14 15-14-1 11-6 16-15 14Zm-7 19c3-13 15-12 15-12-2 11-8 14-15 12Z" fill="#627354"/>
+  <path d="M62 74c4-7 10-12 17-15" stroke="#9d6148" stroke-width="1.4" fill="none"/>
+  <path d="m76 51 2 6 6 2-6 2-2 6-2-6-6-2 6-2Z" fill="#bc7454"/>
+</svg>
