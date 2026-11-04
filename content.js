@@ -10,6 +10,8 @@ export default {
   },
   socials: [
     { label: 'GitHub', icon: 'github', url: 'https://github.com/sorried' },
+    { label: 'Telegram', icon: 'telegram', url: 'https://t.me/i_sorried' },
+    { label: 'pulsaryx', icon: 'telegram', url: 'https://t.me/pulsaryx' },
   ],
   note: 'хорошо, что ты здесь.\nрасполагайся.',
   photo: {

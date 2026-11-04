@@ -88,7 +88,7 @@ byId('link-list').replaceChildren(...site.links.map((item) => {
   return anchor;
 }));
 
-const clockFormat = new Intl.DateTimeFormat('ru-RU', { hour: '2-digit', minute: '2-digit' });
+const clockFormat = new Intl.DateTimeFormat('ru-RU', { timeZone: 'Asia/Yekaterinburg', hour: '2-digit', minute: '2-digit' });
 function updateClock() {
   const now = new Date();
   byId('clock').textContent = clockFormat.format(now);
