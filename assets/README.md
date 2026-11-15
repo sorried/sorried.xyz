@@ -1,6 +1,6 @@
 # assets
 
-`avatar.jpg` скачан 15 ноября 2026 из публичного профиля https://github.com/sorried, адрес изображения: https://avatars.githubusercontent.com/u/180734624?v=4&s=256.
+`avatar.jpg` скачан 15 ноября 2026 из публичного профиля https://github.com/sorried, адрес изображения: https://avatars.githubusercontent.com/u/180734624?v=4&s=1024. GitHub вернул изображение 460×460; оно сохранено без перекодирования и увеличения.
 
 `favicon.svg` создан для этой страницы.
 
