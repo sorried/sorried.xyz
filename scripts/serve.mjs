@@ -11,7 +11,7 @@ const types = {
   '.jpg': 'image/jpeg',
   '.ttf': 'font/ttf',
 };
-const publicFiles = new Set(['index.html', 'main.js', 'styles.css']);
+const publicFiles = new Set(['index.html', 'main.js', 'styles.css', 'sex/index.html']);
 
 const server = createServer(async (request, response) => {
   if (request.method !== 'GET' && request.method !== 'HEAD') {
@@ -20,7 +20,9 @@ const server = createServer(async (request, response) => {
   }
   try {
     const pathname = decodeURIComponent(new URL(request.url, 'http://localhost').pathname);
-    const relative = pathname === '/' ? 'index.html' : pathname.slice(1);
+    const relative = pathname === '/' ? 'index.html'
+      : pathname === '/sex' || pathname === '/sex/' ? 'sex/index.html'
+      : pathname.slice(1);
     const path = resolve(root, relative);
     if (!path.startsWith(root + sep) || (!publicFiles.has(relative) && !path.startsWith(resolve(root, 'assets') + sep))) {
       response.writeHead(404).end('not found');

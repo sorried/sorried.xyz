@@ -91,5 +91,15 @@ test('built page serves all local assets and keeps repository files private', as
   for (const path of ['/.git/config', '/package.json', '/docs/design.md', '/assets/%2e%2e%2fpackage.json', '/missing', '/%ZZ']) {
     assert.ok([400, 404].includes((await fetch(`${origin}${path}`)).status), path);
   }
+  for (const path of ['/sex', '/sex/', '/sex/index.html']) {
+    const photoPage = await fetch(`${origin}${path}`);
+    assert.equal(photoPage.status, 200, path);
+    assert.match(photoPage.headers.get('content-type'), /text\/html/);
+    assert.match(await photoPage.text(), /src="\/assets\/secret\/six\.jpg"/);
+  }
+  const photo = await fetch(`${origin}/assets/secret/six.jpg`);
+  assert.equal(photo.status, 200);
+  assert.equal(photo.headers.get('content-type'), 'image/jpeg');
+  assert.deepEqual(Buffer.from(await photo.arrayBuffer()), await readFile(new URL('../assets/secret/six.jpg', import.meta.url)));
   assert.equal((await fetch(origin, { method: 'POST' })).status, 405);
 });

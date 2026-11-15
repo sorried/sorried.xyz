@@ -15,3 +15,5 @@
 - https://github.com/google/fonts/tree/main/ofl/unbounded
 
 Шрифты и изображения загружаются локально. Страница не обращается к Google Fonts.
+
+`secret/six.jpg` предоставлен пользователем для страницы `/sex`. Файл сохранён без изменений.
