@@ -14,15 +14,18 @@ function loadPage({ saved, dark = false, blocked = false } = {}) {
     'meta[name="theme-color"]': {},
     '#local-time': {},
     '#year': {},
+    '.copy-button': { addEventListener() {} },
   };
   const document = {
     documentElement: { dataset: {} },
     querySelector: (selector) => elements[selector],
+    querySelectorAll: () => [],
     addEventListener(event, callback) { this.ready = callback; },
   };
   const media = { matches: dark, addEventListener(event, callback) { this.change = callback; } };
   runInNewContext(script, {
     document, Intl, Date,
+    window: { addEventListener() {} }, location: { hash: '' },
     localStorage: {
       getItem() { if (blocked) throw new Error('storage blocked'); return state.theme; },
       setItem(key, value) { if (blocked) throw new Error('storage blocked'); state.theme = value; },
@@ -34,7 +37,7 @@ function loadPage({ saved, dark = false, blocked = false } = {}) {
   return { document, elements, media, state };
 }
 
-test('theme follows the system and saves an explicit choice', () => {
+test('theme defaults to dark and saves an explicit choice', () => {
   const { document, elements, state, media } = loadPage({ dark: true });
   const button = elements['.theme-toggle'];
   assert.equal(button.hidden, false);
@@ -42,21 +45,20 @@ test('theme follows the system and saves an explicit choice', () => {
   button.click();
   assert.equal(document.documentElement.dataset.theme, 'light');
   assert.equal(state.theme, 'light');
-  assert.equal(elements['meta[name="theme-color"]'].content, '#ffffff');
-  media.change();
+  assert.equal(elements['meta[name="theme-color"]'].content, '#f7faf7');
   assert.equal(document.documentElement.dataset.theme, 'light');
 });
 
 test('saved theme overrides the system', () => {
   const { document, elements } = loadPage({ saved: 'dark' });
   assert.equal(document.documentElement.dataset.theme, 'dark');
-  assert.equal(elements['meta[name="theme-color"]'].content, '#0d1117');
+  assert.equal(elements['meta[name="theme-color"]'].content, '#080a09');
 });
 
 test('blocked storage does not break the theme or clock', () => {
-  const { document, elements } = loadPage({ blocked: true });
+  const { document, elements } = loadPage({ blocked: true, saved: 'light' });
   elements['.theme-toggle'].click();
-  assert.equal(document.documentElement.dataset.theme, 'dark');
+  assert.equal(document.documentElement.dataset.theme, 'light');
   const clock = elements['#local-time'];
   assert.equal(clock.textContent, new Intl.DateTimeFormat('ru-RU', {
     timeZone: 'Asia/Yekaterinburg', hour: '2-digit', minute: '2-digit', hourCycle: 'h23',

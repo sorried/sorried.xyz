@@ -9,6 +9,7 @@ const types = {
   '.css': 'text/css; charset=utf-8',
   '.svg': 'image/svg+xml',
   '.jpg': 'image/jpeg',
+  '.ttf': 'font/ttf',
 };
 const publicFiles = new Set(['index.html', 'main.js', 'styles.css']);
 

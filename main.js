@@ -5,23 +5,47 @@ try {
 
 document.addEventListener('DOMContentLoaded', () => {
   const themeButton = document.querySelector('.theme-toggle');
-  const systemTheme = matchMedia('(prefers-color-scheme: dark)');
-  const isDark = () => document.documentElement.dataset.theme === 'dark'
-    || (!document.documentElement.dataset.theme && systemTheme.matches);
-
+  const isDark = () => document.documentElement.dataset.theme !== 'light';
   const updateTheme = () => {
     themeButton.setAttribute('aria-label', `включить ${isDark() ? 'светлую' : 'тёмную'} тему`);
-    document.querySelector('meta[name="theme-color"]').content = isDark() ? '#0d1117' : '#ffffff';
+    document.querySelector('meta[name="theme-color"]').content = isDark() ? '#080a09' : '#f7faf7';
   };
-
   themeButton.hidden = false;
   updateTheme();
-  systemTheme.addEventListener('change', updateTheme);
   themeButton.addEventListener('click', () => {
     const theme = isDark() ? 'light' : 'dark';
     document.documentElement.dataset.theme = theme;
     try { localStorage.setItem('theme', theme); } catch {}
     updateTheme();
+  });
+
+  const links = [...document.querySelectorAll('.nav a')];
+  const selectLink = (hash) => {
+    links.forEach(link => {
+      if (link.hash === hash) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    });
+  };
+  links.forEach(link => link.addEventListener('click', () => selectLink(link.hash)));
+  const sections = links.map(link => document.querySelector(link.hash));
+  const updateSection = () => {
+    const current = sections.findLast(section => section.getBoundingClientRect().top <= innerHeight * .45);
+    selectLink(current ? `#${current.id}` : '');
+  };
+  window.addEventListener('scroll', updateSection, { passive: true });
+  window.addEventListener('hashchange', () => selectLink(location.hash));
+  selectLink(location.hash);
+
+  const copyButton = document.querySelector('.copy-button');
+  copyButton.hidden = false;
+  copyButton.addEventListener('click', async () => {
+    const status = document.querySelector('.copy-status');
+    try {
+      await navigator.clipboard.writeText('@i_sorried');
+      status.textContent = '@i_sorried скопирован';
+    } catch {
+      status.textContent = 'можно скопировать вручную: @i_sorried';
+    }
   });
 
   const clock = document.querySelector('#local-time');
