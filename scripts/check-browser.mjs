@@ -23,7 +23,7 @@ try {
     await page.goto(origin);
     await page.evaluate(() => document.fonts.ready);
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth), width, `horizontal overflow at ${width}`);
-    assert.equal(await page.locator('.project-link').count(), 4);
+    assert.equal(await page.locator('.project-link').count(), 6);
     assert.ok(await page.evaluate(() => document.fonts.check('500 24px Unbounded')));
     for (const id of ['projects', 'contacts', 'about']) {
       const link = page.locator(`nav a[href="#${id}"]`);
@@ -49,7 +49,7 @@ try {
       await page.screenshot({ path: resolve(process.env.PREVIEW_DIR, width === 375 ? 'mobile.png' : 'desktop.png'), fullPage: true });
     }
     await page.route('https://github.com/sorried/xyecoc-ipa', route => route.fulfill({ contentType: 'text/html', body: '<title>project destination</title>' }));
-    await page.locator('.project-link').first().click({ position: { x: 30, y: 65 } });
+    await page.locator('.project-link[href="https://github.com/sorried/xyecoc-ipa"]').click({ position: { x: 30, y: 65 } });
     await page.waitForURL('https://github.com/sorried/xyecoc-ipa');
     await page.goto(origin);
     await page.route('https://t.me/i_sorried', route => route.fulfill({ contentType: 'text/html', body: '<title>contact destination</title>' }));
@@ -62,7 +62,7 @@ try {
   const page = await browser.newPage({ viewport: { width: 375, height: 812 }, javaScriptEnabled: false });
   await page.goto(origin);
   assert.ok(await page.getByRole('heading', { name: 'sorried.' }).isVisible());
-  assert.equal(await page.locator('.project-link').count(), 4);
+  assert.equal(await page.locator('.project-link').count(), 6);
   await page.locator('.tools summary').click();
   assert.equal(await page.locator('.tools').getAttribute('open'), '');
   console.log('no-JavaScript content and native details: passed');
