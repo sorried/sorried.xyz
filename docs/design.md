@@ -18,6 +18,7 @@
 - https://github.com/sorried/xyecoc-ipa
 - https://github.com/sorried/freshupdate
 - https://github.com/sorried/disable-shorts
+- https://github.com/sorried/sorried.xyz
 
 Maya Moon, sorried, she/her, Челябинская область, UTC+5. SwiftUI для iOS и macOS, Telegram-боты, модули и плагины. Изучает Go и Rust. Русский и английский. В bio указана любовь к dnb. Telegram: https://t.me/i_sorried. Аватар хранится локально.
 
