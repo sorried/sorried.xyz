@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const updateTheme = () => {
     themeButton.setAttribute('aria-label', `включить ${isDark() ? 'светлую' : 'тёмную'} тему`);
-    document.querySelector('meta[name="theme-color"]').content = isDark() ? '#1d1e1b' : '#f8f7f4';
+    document.querySelector('meta[name="theme-color"]').content = isDark() ? '#0d1117' : '#ffffff';
   };
 
   themeButton.hidden = false;

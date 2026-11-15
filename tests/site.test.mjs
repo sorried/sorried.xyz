@@ -42,7 +42,7 @@ test('theme follows the system and saves an explicit choice', () => {
   button.click();
   assert.equal(document.documentElement.dataset.theme, 'light');
   assert.equal(state.theme, 'light');
-  assert.equal(elements['meta[name="theme-color"]'].content, '#f8f7f4');
+  assert.equal(elements['meta[name="theme-color"]'].content, '#ffffff');
   media.change();
   assert.equal(document.documentElement.dataset.theme, 'light');
 });
@@ -50,7 +50,7 @@ test('theme follows the system and saves an explicit choice', () => {
 test('saved theme overrides the system', () => {
   const { document, elements } = loadPage({ saved: 'dark' });
   assert.equal(document.documentElement.dataset.theme, 'dark');
-  assert.equal(elements['meta[name="theme-color"]'].content, '#1d1e1b');
+  assert.equal(elements['meta[name="theme-color"]'].content, '#0d1117');
 });
 
 test('blocked storage does not break the theme or clock', () => {
