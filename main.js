@@ -5,10 +5,10 @@ try {
 
 document.addEventListener('DOMContentLoaded', () => {
   const themeButton = document.querySelector('.theme-toggle');
-  const isDark = () => document.documentElement.dataset.theme !== 'light';
+  const isDark = () => document.documentElement.dataset.theme === 'dark';
   const updateTheme = () => {
     themeButton.setAttribute('aria-label', `включить ${isDark() ? 'светлую' : 'тёмную'} тему`);
-    document.querySelector('meta[name="theme-color"]').content = isDark() ? '#080a09' : '#f7faf7';
+    document.querySelector('meta[name="theme-color"]').content = isDark() ? '#211d29' : '#eae4f0';
   };
   themeButton.hidden = false;
   updateTheme();

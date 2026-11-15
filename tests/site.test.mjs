@@ -35,27 +35,27 @@ function loadPage({ saved, blocked = false } = {}) {
   return { document, elements, state };
 }
 
-test('theme defaults to dark and saves an explicit choice', () => {
+test('theme defaults to light and saves an explicit choice', () => {
   const { document, elements, state } = loadPage();
   const button = elements['.theme-toggle'];
   assert.equal(button.hidden, false);
-  assert.equal(button['aria-label'], 'включить светлую тему');
+  assert.equal(button['aria-label'], 'включить тёмную тему');
   button.click();
-  assert.equal(document.documentElement.dataset.theme, 'light');
-  assert.equal(state.theme, 'light');
-  assert.equal(elements['meta[name="theme-color"]'].content, '#f7faf7');
+  assert.equal(document.documentElement.dataset.theme, 'dark');
+  assert.equal(state.theme, 'dark');
+  assert.equal(elements['meta[name="theme-color"]'].content, '#211d29');
 });
 
-test('saved light theme overrides the dark default', () => {
-  const { document, elements } = loadPage({ saved: 'light' });
-  assert.equal(document.documentElement.dataset.theme, 'light');
-  assert.equal(elements['meta[name="theme-color"]'].content, '#f7faf7');
+test('saved dark theme overrides the light default', () => {
+  const { document, elements } = loadPage({ saved: 'dark' });
+  assert.equal(document.documentElement.dataset.theme, 'dark');
+  assert.equal(elements['meta[name="theme-color"]'].content, '#211d29');
 });
 
 test('blocked storage does not break the theme or clock', () => {
   const { document, elements } = loadPage({ blocked: true, saved: 'light' });
   elements['.theme-toggle'].click();
-  assert.equal(document.documentElement.dataset.theme, 'light');
+  assert.equal(document.documentElement.dataset.theme, 'dark');
   const clock = elements['#local-time'];
   assert.equal(clock.textContent, new Intl.DateTimeFormat('ru-RU', {
     timeZone: 'Asia/Yekaterinburg', hour: '2-digit', minute: '2-digit', hourCycle: 'h23',

@@ -48,11 +48,11 @@ try {
     await page.getByRole('button', { name: 'скопировать Telegram' }).click();
     await page.locator('.copy-status').filter({ hasText: '@i_sorried скопирован' }).waitFor();
     assert.equal(await page.evaluate(() => navigator.clipboard.readText()), '@i_sorried');
-    await page.getByRole('button', { name: 'включить светлую тему' }).click();
-    assert.equal(await page.locator('html').getAttribute('data-theme'), 'light');
-    await page.reload();
-    assert.equal(await page.locator('html').getAttribute('data-theme'), 'light');
     await page.getByRole('button', { name: 'включить тёмную тему' }).click();
+    assert.equal(await page.locator('html').getAttribute('data-theme'), 'dark');
+    await page.reload();
+    assert.equal(await page.locator('html').getAttribute('data-theme'), 'dark');
+    await page.getByRole('button', { name: 'включить светлую тему' }).click();
     await page.locator('.wordmark').click();
     if (process.env.PREVIEW_DIR && [375, 1280].includes(width)) {
       await page.screenshot({ path: resolve(process.env.PREVIEW_DIR, width === 375 ? 'mobile.png' : 'desktop.png'), fullPage: true, scale: 'css' });
@@ -77,7 +77,7 @@ try {
   }
   const page = await browser.newPage({ viewport: { width: 375, height: 812 }, javaScriptEnabled: false });
   await page.goto(origin);
-  assert.ok(await page.getByRole('heading', { name: 'sorried.' }).isVisible());
+  assert.ok(await page.getByRole('heading', { name: 'Maya Moon.' }).isVisible());
   assert.equal(await page.locator('.project-link').count(), 6);
   await page.locator('.tools summary').click();
   assert.equal(await page.locator('.tools').getAttribute('open'), '');
