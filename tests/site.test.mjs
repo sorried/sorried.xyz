@@ -7,7 +7,7 @@ import { runInNewContext } from 'node:vm';
 
 const script = await readFile(new URL('../main.js', import.meta.url), 'utf8');
 
-function loadPage({ saved, dark = false, blocked = false } = {}) {
+function loadPage({ saved, blocked = false } = {}) {
   const state = { theme: saved };
   const elements = {
     '.theme-toggle': { hidden: true, setAttribute(name, value) { this[name] = value; }, addEventListener(event, callback) { this[event] = callback; } },
@@ -22,7 +22,6 @@ function loadPage({ saved, dark = false, blocked = false } = {}) {
     querySelectorAll: () => [],
     addEventListener(event, callback) { this.ready = callback; },
   };
-  const media = { matches: dark, addEventListener(event, callback) { this.change = callback; } };
   runInNewContext(script, {
     document, Intl, Date,
     window: { addEventListener() {} }, location: { hash: '' },
@@ -30,15 +29,14 @@ function loadPage({ saved, dark = false, blocked = false } = {}) {
       getItem() { if (blocked) throw new Error('storage blocked'); return state.theme; },
       setItem(key, value) { if (blocked) throw new Error('storage blocked'); state.theme = value; },
     },
-    matchMedia: () => media,
     setInterval() {},
   });
   document.ready();
-  return { document, elements, media, state };
+  return { document, elements, state };
 }
 
 test('theme defaults to dark and saves an explicit choice', () => {
-  const { document, elements, state, media } = loadPage({ dark: true });
+  const { document, elements, state } = loadPage();
   const button = elements['.theme-toggle'];
   assert.equal(button.hidden, false);
   assert.equal(button['aria-label'], 'включить светлую тему');
@@ -46,13 +44,12 @@ test('theme defaults to dark and saves an explicit choice', () => {
   assert.equal(document.documentElement.dataset.theme, 'light');
   assert.equal(state.theme, 'light');
   assert.equal(elements['meta[name="theme-color"]'].content, '#f7faf7');
-  assert.equal(document.documentElement.dataset.theme, 'light');
 });
 
-test('saved theme overrides the system', () => {
-  const { document, elements } = loadPage({ saved: 'dark' });
-  assert.equal(document.documentElement.dataset.theme, 'dark');
-  assert.equal(elements['meta[name="theme-color"]'].content, '#080a09');
+test('saved light theme overrides the dark default', () => {
+  const { document, elements } = loadPage({ saved: 'light' });
+  assert.equal(document.documentElement.dataset.theme, 'light');
+  assert.equal(elements['meta[name="theme-color"]'].content, '#f7faf7');
 });
 
 test('blocked storage does not break the theme or clock', () => {
