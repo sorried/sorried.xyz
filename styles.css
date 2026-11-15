@@ -132,7 +132,6 @@ strong { font-weight: 600; }
   .profile-heading { display: block; }
   .avatar { width: 100%; height: auto; aspect-ratio: 1; margin-bottom: 16px; }
   .username { margin-top: 4px; }
-  .username span { display: block; margin-top: 4px; }
   .profile-nav { margin-top: -8px; }
   .markdown { padding: 20px 24px; }
   .file-heading { padding: 16px 24px 0; }
