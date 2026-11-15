@@ -52,6 +52,10 @@ try {
     assert.equal(await page.locator('html').getAttribute('data-theme'), 'dark');
     await page.reload();
     assert.equal(await page.locator('html').getAttribute('data-theme'), 'dark');
+    await page.locator('.wordmark').click();
+    if (process.env.PREVIEW_DIR && [375, 1280].includes(width)) {
+      await page.screenshot({ path: resolve(process.env.PREVIEW_DIR, width === 375 ? 'mobile-dark.png' : 'desktop-dark.png'), fullPage: true, scale: 'css' });
+    }
     await page.getByRole('button', { name: 'включить светлую тему' }).click();
     await page.locator('.wordmark').click();
     if (process.env.PREVIEW_DIR && [375, 1280].includes(width)) {
